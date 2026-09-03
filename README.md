@@ -1,2 +1,0 @@
-# mision-papa
-Proyecto secreto
