@@ -1,1 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM_ACCESS // CLASSIFIED</title>
+    <style>
+        :root {
+            --green: #00ff41;
+            --dark: #0d0d0d;
+            --red: #ff0033;
+        }
 
+        body {
+            background-color: var(--dark);
+            color: var(--green);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .terminal {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            width: 100%;
+            max-width: 650px;
+            padding: 30px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        h1, h2 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0;
+        }
+
+        .input-group { margin: 20px 0; text-align: center; }
+
+        input[type="text"], input[type="password"] {
+            background: #000;
+            border: 1px solid var(--green);
+            color: var(--green);
+            padding: 10px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            width: 80%;
+            text-align: center;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: var(--green);
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            font-weight: bold;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+
+        button:hover { background: #fff; box-shadow: 0 0 10px #fff; }
+        .hidden { display: none; }
+        .error { color: var(--red); font-size: 0.9rem; }
+        .hint { font-size: 0.85rem; color: #888; margin-top: 10px; }
+
+        #padlock-container {
+            text-align: center;
+            font-size: 80px;
+            cursor: pointer;
+            user-select: none;
+            margin: 20px 0;
+            transition: transform 0.1s;
+        }
+
+        #padlock-container:active { transform: scale(0.9); }
+        .progress-bar {
+            width: 100%;
+            background: #222;
+            height: 15px;
+            border: 1px solid var(--green);
+            margin-top: 10px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--green);
+            width: 0%;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="terminal">
+    <div id="screen-auth">
+        <h1 style="color: var(--red);">[ ACCESO RESTRINGIDO ]</h1>
+        <p style="text-align: center;">SISTEMA ENCRIPTADO Nivel 3.0</p>
+        <p>Ingrese la palabra clave de acceso obtenida para iniciar la secuencia:</p>
+        <div class="input-group">
+            <input type="password" id="auth-key" placeholder="Contraseña...">
+            <br>
+            <button onclick="checkAuth()">Ingresar</button>
+        </div>
+        <p id="auth-error" class="error"></p>
+    </div>
+
+    <div id="screen-lvl1" class="hidden">
+        <h2>>> NIVEL 1: CÓDIGO BINARIO <<</h2>
+        <p>El sistema requiere desencriptar la siguiente secuencia ASCII en texto plano:</p>
+        <p style="word-break: break-all; background: #000; padding: 10px; border: 1px dashed var(--green); text-align: center;">
+            01001000 01001111 01001100 01000001
+        </p>
+        <div class="input-group">
+            <input type="text" id="ans-lvl1" placeholder="Respuesta...">
+            <br>
+            <button onclick="checkLvl1()">Desencriptar</button>
+        </div>
+        <p id="err-lvl1" class="error"></p>
+        <p class="hint">Pista: Convierte el código binario a texto (en mayúsculas).</p>
+    </div>
+
+    <div id="screen-lvl2" class="hidden">
+        <h2>>> NIVEL 2: INSPECCIÓN CIBERNÉTICA <<</h2>
+        <p>Hay una falla de seguridad en el código de esta pantalla. El token de acceso está oculto donde solo los programadores miran...</p>
+        <div class="input-group">
+            <input type="text" id="ans-lvl2" placeholder="Token Secreto...">
+            <br>
+            <button onclick="checkLvl2()">Verificar Token</button>
+        </div>
+        <p id="err-lvl2" class="error"></p>
+        <p class="hint">Pista: Haz clic derecho > "Inspeccionar" (o F12) y busca en el código HTML el comentario oculto .</p>
+        </div>
+
+    <div id="screen-lvl3" class="hidden">
+        <h2>>> NIVEL 3: PROTOCOLO CICADA <<</h2>
+        <p>Abre la siguiente cadena encriptada en Base64 para obtener el código final:</p>
+        <p style="background: #111; padding: 15px; border: 1px solid var(--green); font-size: 0.9rem; word-break: break-all;">
+            SG9sYSBwYXAuwqBFbCBjb2RpZ28gc2VjcmV0byBlczogTUFUUklYOTk=
+        </p>
+        <p>Decodifica el mensaje e ingresa la palabra clave que aparece al final:</p>
+        <div class="input-group">
+            <input type="text" id="ans-lvl3" placeholder="Clave Final...">
+            <br>
+            <button onclick="checkLvl3()">Desbloquear Sistema</button>
+        </div>
+        <p id="err-lvl3" class="error"></p>
+        <p class="hint">Pista: Usa un decodificador Base64 en Google.</p>
+    </div>
+
+    <div id="screen-lock" class="hidden">
+        <h2>>> ENCRIPTACIÓN FÍSICA DETECTADA <<</h2>
+        <p style="text-align: center;">Haz clics repetidos sobre el candado para romprer la seguridad final (10 clics rápidos):</p>
+        <div id="padlock-container" onclick="clickLock()">🔒</div>
+        <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+        </div>
+    </div>
+
+    <div id="screen-final" class="hidden" style="text-align: center;">
+        <h1 style="color: var(--green);">¡SISTEMA DESBLOQUEADO!</h1>
+        <p style="font-size: 1.2rem;">Felicidades Papá, demostraste ser un verdadero Hacker.</p>
+        <hr style="border-color: var(--green);">
+        <h3>MISIÓN CUMPLIDA. PETICIÓN DEL AGENTE:</h3>
+        <p style="font-size: 1.5rem; color: #fff;">⌨️ <b>UN TECLADO GAMER</b> + 🖱️ <b>UN MOUSE GAMER</b></p>
+        <p>¿Aceptas la petición?</p>
+    </div>
+</div>
+
+<script>
+    const PASS_INITIAL = "panzon";
+    const ANS_LVL1 = "HOLA";
+    const ANS_LVL2 = "NEXUS2026";
+    const ANS_LVL3 = "MATRIX99";
+
+    let clicks = 0;
+    const maxClicks = 10;
+
+    function checkAuth() {
+        const input = document.getElementById('auth-key').value.trim().toLowerCase();
+        if(input === PASS_INITIAL) {
+            document.getElementById('screen-auth').classList.add('hidden');
+            document.getElementById('screen-lvl1').classList.remove('hidden');
+        } else {
+            document.getElementById('auth-error').innerText = "ACCESO DENEGADO: Clave incorrecta.";
+        }
+    }
+
+    function checkLvl1() {
+        const input = document.getElementById('ans-lvl1').value.trim().toUpperCase();
+        if(input === ANS_LVL1) {
+            document.getElementById('screen-lvl1').classList.add('hidden');
+            document.getElementById('screen-lvl2').classList.remove('hidden');
+        } else {
+            document.getElementById('err-lvl1').innerText = "CÓDIGO INCORRECTO. Intenta de nuevo.";
+        }
+    }
+
+    function checkLvl2() {
+        const input = document.getElementById('ans-lvl2').value.trim().toUpperCase();
+        if(input === ANS_LVL2) {
+            document.getElementById('screen-lvl2').classList.add('hidden');
+            document.getElementById('screen-lvl3').classList.remove('hidden');
+        } else {
+            document.getElementById('err-lvl2').innerText = "TOKEN INVÁLIDO. Revisa el código fuente de la página.";
+        }
+    }
+
+    function checkLvl3() {
+        const input = document.getElementById('ans-lvl3').value.trim().toUpperCase();
+        if(input === ANS_LVL3) {
+            document.getElementById('screen-lvl3').classList.add('hidden');
+            document.getElementById('screen-lock').classList.remove('hidden');
+        } else {
+            document.getElementById('err-lvl3').innerText = "CLAVE ERRÓNEA. Decodifica el mensaje en Base64.";
+        }
+    }
+
+    function clickLock() {
+        clicks++;
+        let percentage = (clicks / maxClicks) * 100;
+        document.getElementById('progress-fill').style.width = percentage + "%";
+        
+        if (clicks >= 5 && clicks < maxClicks) {
+            document.getElementById('padlock-container').innerText = "🔓";
+        }
+
+        if (clicks >= maxClicks) {
+            document.getElementById('screen-lock').classList.add('hidden');
+            document.getElementById('screen-final').classList.remove('hidden');
+        }
+    }
+</script>
+</body>
+</html>
