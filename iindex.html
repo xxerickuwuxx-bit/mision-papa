@@ -1,1 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>ARCHIVO SECRETO</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(circle at 20% 20%, #24305a, transparent 35%),
+    radial-gradient(circle at 80% 80%, #30204d, transparent 35%),
+    #05060a;
+
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+/* CUADRÍCULA DEL FONDO */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background:
+    linear-gradient(#ffffff05 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff05 1px, transparent 1px);
+
+  background-size: 45px 45px;
+
+  pointer-events: none;
+}
+
+/* PANEL */
+
+.panel {
+  width: 90%;
+  max-width: 680px;
+
+  padding: 42px;
+
+  border: 1px solid #ffffff18;
+  border-radius: 22px;
+
+  background: #ffffff08;
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 30px 100px #000000aa,
+    inset 0 1px #ffffff12;
+
+  animation: aparecer 0.8s ease;
+}
+
+@keyframes aparecer {
+
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+/* CABECERA */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #7cffb2;
+
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: #7cffb2;
+
+  box-shadow: 0 0 15px #7cffb2;
+
+  animation: pulsar 1.5s infinite;
+}
+
+@keyframes pulsar {
+
+  50% {
+    opacity: 0.4;
+  }
+
+}
+
+.security {
+  padding: 7px 12px;
+
+  border: 1px solid #ffffff18;
+  border-radius: 20px;
+
+  color: #aaa;
+
+  font-size: 11px;
+}
+
+/* TITULOS */
+
+h1 {
+  margin: 40px 0 15px;
+
+  font-size: 44px;
+  line-height: 0.95;
+
+  letter-spacing: -2px;
+}
+
+h1 span {
+  color: #7cffb2;
+}
+
+.description {
+  color: #999;
+
+  line-height: 1.7;
+
+  font-size: 15px;
+}
+
+/* INPUT */
+
+label {
+  display: block;
+
+  color: #888;
+
+  font-size: 11px;
+
+  letter-spacing: 2px;
+
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;
+
+  padding: 17px;
+
+  border-radius: 10px;
+
+  border: 1px solid #ffffff18;
+
+  background: #00000055;
+
+  color: white;
+
+  outline: none;
+
+  font-size: 16px;
+
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #7cffb2;
+
+  box-shadow: 0 0 20px #7cffb21a;
+}
+
+/* BOTON */
+
+button {
+  width: 100%;
+
+  margin-top: 15px;
+
+  padding: 17px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: white;
+
+  color: black;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 30px #ffffff20;
+}
+
+/* RESULTADO */
+
+#resultado {
+  margin-top: 20px;
+
+  line-height: 1.6;
+}
+
+.success {
+  color: #7cffb2;
+}
+
+.error {
+  color: #ff7373;
+}
+
+/* NIVELES */
+
+.nivel {
+  display: none;
+}
+
+.nivel.activo {
+  display: block;
+}
+
+.acertijo {
+  margin-top: 30px;
+
+  padding: 25px;
+
+  border-radius: 12px;
+
+  background: #00000055;
+
+  line-height: 1.8;
+}
+
+.numero {
+  color: #7cffb2;
+
+  font-size: 12px;
+
+  letter-spacing: 2px;
+}
+
+/* ANIMACION DE CAMBIO */
+
+.cambio {
+  animation: cambio 0.7s ease;
+}
+
+@keyframes cambio {
+
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+
+  <!-- ========================= -->
+  <!-- NIVEL 1 -->
+  <!-- ========================= -->
+
+  <div id="nivel1" class="nivel activo">
+
+    <div class="header">
+
+      <div class="status">
+        <span class="dot"></span>
+        SISTEMA ONLINE
+      </div>
+
+      <div class="security">
+        NIVEL 01
+      </div>
+
+    </div>
+
+    <h1>
+      ACCESO<br>
+      <span>RESTRINGIDO</span>
+    </h1>
+
+    <p class="description">
+      Se ha detectado una solicitud pendiente.
+      <br>
+      Para continuar, demuestra que tienes autorización.
+    </p>
+
+    <label>
+      CONTRASEÑA DEL ARCHIVO
+    </label>
+
+    <input
+      id="clave"
+      type="text"
+      placeholder="Introduce la palabra..."
+      autocomplete="off"
+    >
+
+    <button onclick="verificarNivel1()">
+      DESBLOQUEAR ARCHIVO →
+    </button>
+
+    <div id="resultado"></div>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- NIVEL 2 -->
+  <!-- ========================= -->
+
+  <div id="nivel2" class="nivel">
+
+    <div class="header">
+
+      <div class="status">
+        <span class="dot"></span>
+        ACCESO CONFIRMADO
+      </div>
+
+      <div class="security">
+        NIVEL 02
+      </div>
+
+    </div>
+
+    <h1>
+      SEGUNDA<br>
+      <span>PRUEBA</span>
+    </h1>
+
+    <p class="description">
+      Has conseguido entrar al primer archivo.
+      <br>
+      Pero todavía no puedes conocer la solicitud.
+    </p>
+
+    <div class="acertijo">
+
+      <div class="numero">
+        🧩 ACERTIJO 01
+      </div>
+
+      <br>
+
+      Tengo teclas, pero no soy un piano.
+
+      <br>
+
+      Tengo espacio, pero no soy una habitación.
+
+      <br>
+
+      Puedes entrar, pero no puedes caminar dentro de mí.
+
+      <br><br>
+
+      <strong>
+        ¿Qué soy?
+      </strong>
+
+    </div>
+
+    <input
+      id="respuesta2"
+      type="text"
+      placeholder="Escribe tu respuesta..."
+      autocomplete="off"
+    >
+
+    <button onclick="verificarNivel2()">
+      COMPROBAR RESPUESTA →
+    </button>
+
+    <div id="resultado2"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   NIVEL 1
+========================= */
+
+function verificarNivel1() {
+
+  const clave = document
+    .getElementById("clave")
+    .value
+    .trim()
+    .toUpperCase();
+
+  const resultado =
+    document.getElementById("resultado");
+
+  if (clave === "ACCESO") {
+
+    resultado.innerHTML = `
+      <div class="success">
+        ✓ IDENTIDAD CONFIRMADA<br>
+        ✓ ARCHIVO DESBLOQUEADO<br><br>
+        Preparando siguiente prueba...
+      </div>
+    `;
+
+    setTimeout(() => {
+
+      document
+        .getElementById("nivel1")
+        .classList.remove("activo");
+
+      document
+        .getElementById("nivel2")
+        .classList.add("activo", "cambio");
+
+    }, 1500);
+
+  } else {
+
+    resultado.innerHTML = `
+      <div class="error">
+        ✕ CONTRASEÑA INCORRECTA<br>
+        El acceso continúa bloqueado.
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================
+   NIVEL 2
+========================= */
+
+function verificarNivel2() {
+
+  const respuesta = document
+    .getElementById("respuesta2")
+    .value
+    .trim()
+    .toLowerCase();
+
+  const resultado =
+    document.getElementById("resultado2");
+
+  if (
+    respuesta === "teclado" ||
+    respuesta === "un teclado"
+  ) {
+
+    resultado.innerHTML = `
+      <div class="success">
+        ✓ RESPUESTA CORRECTA<br><br>
+        Has superado la segunda prueba.
+      </div>
+    `;
+
+  } else {
+
+    resultado.innerHTML = `
+      <div class="error">
+        ✕ RESPUESTA INCORRECTA<br>
+        La prueba continúa bloqueada.
+      </div>
+    `;
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
